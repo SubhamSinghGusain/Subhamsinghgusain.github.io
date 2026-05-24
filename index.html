@@ -524,13 +524,253 @@
     footer { flex-direction: column; gap: 0.5rem; text-align: center; }
     .portfolio-drives { grid-template-columns: 1fr; }
   }
+
+  /* ========== PROFESSIONAL KEYFRAME ANIMATIONS ========== */
+
+  /* Floating animation for photo frame */
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-12px); }
+  }
+
+  /* Shimmer sweep on gold elements */
+  @keyframes shimmer {
+    0% { background-position: -200% center; }
+    100% { background-position: 200% center; }
+  }
+
+  /* Pulsing glow for gold accent line */
+  @keyframes glowPulse {
+    0%, 100% { box-shadow: 0 0 6px rgba(201,168,76,0.3), 0 0 12px rgba(201,168,76,0.1); }
+    50% { box-shadow: 0 0 18px rgba(201,168,76,0.7), 0 0 35px rgba(201,168,76,0.3); }
+  }
+
+  /* Typewriter cursor blink */
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+
+  /* Slide in from left */
+  @keyframes slideInLeft {
+    from { opacity: 0; transform: translateX(-50px); }
+    to   { opacity: 1; transform: translateX(0); }
+  }
+
+  /* Slide in from right */
+  @keyframes slideInRight {
+    from { opacity: 0; transform: translateX(50px); }
+    to   { opacity: 1; transform: translateX(0); }
+  }
+
+  /* Scale pop for stat numbers */
+  @keyframes popIn {
+    0%   { opacity: 0; transform: scale(0.5); }
+    80%  { transform: scale(1.1); }
+    100% { opacity: 1; transform: scale(1); }
+  }
+
+  /* Rotating border for photo */
+  @keyframes rotateBorder {
+    0%   { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  /* Particle drift */
+  @keyframes drift {
+    0%   { transform: translateY(0) translateX(0) rotate(0deg); opacity: 0.6; }
+    33%  { transform: translateY(-30px) translateX(15px) rotate(120deg); opacity: 0.3; }
+    66%  { transform: translateY(-15px) translateX(-10px) rotate(240deg); opacity: 0.5; }
+    100% { transform: translateY(0) translateX(0) rotate(360deg); opacity: 0.6; }
+  }
+
+  /* Nav link underline slide */
+  @keyframes navUnderline {
+    from { width: 0; }
+    to   { width: 100%; }
+  }
+
+  /* Card shine sweep */
+  @keyframes cardShine {
+    0%   { left: -100%; }
+    100% { left: 200%; }
+  }
+
+  /* Counter count-up feel — just a bounce */
+  @keyframes statBounce {
+    0%   { transform: translateY(20px); opacity: 0; }
+    60%  { transform: translateY(-5px); }
+    100% { transform: translateY(0); opacity: 1; }
+  }
+
+  /* Gradient text animation */
+  @keyframes gradientShift {
+    0%   { background-position: 0% 50%; }
+    50%  { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  /* ========== APPLY ANIMATIONS ========== */
+
+  /* Floating photo */
+  .photo-frame {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  /* Spinning decorative border behind photo */
+  .photo-frame::before {
+    animation: rotateBorder 12s linear infinite;
+    transform-origin: center;
+  }
+
+  /* Hero name gradient shimmer */
+  .hero-name em {
+    background: linear-gradient(90deg, #c9a84c, #f5e17a, #c9a84c, #e8c97a, #c9a84c);
+    background-size: 300% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: gradientShift 4s ease infinite;
+  }
+
+  /* Stat numbers pop in */
+  .stat-num {
+    animation: popIn 0.7s cubic-bezier(.36,.07,.19,.97) both;
+  }
+  .hero-stats > div:nth-child(1) .stat-num { animation-delay: 0.8s; }
+  .hero-stats > div:nth-child(2) .stat-num { animation-delay: 1s; }
+  .hero-stats > div:nth-child(3) .stat-num { animation-delay: 1.2s; }
+
+  /* Nav links underline on hover */
+  .nav-links a {
+    position: relative;
+  }
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -3px; left: 0;
+    width: 0; height: 1px;
+    background: var(--gold);
+    transition: width 0.3s ease;
+  }
+  .nav-links a:hover::after {
+    width: 100%;
+  }
+
+  /* Section label glow pulse */
+  .section-label::after {
+    animation: glowPulse 2.5s ease-in-out infinite;
+  }
+
+  /* Portfolio cards shine on hover */
+  .portfolio-card {
+    overflow: hidden;
+  }
+  .portfolio-card::after {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 60%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(201,168,76,0.08), transparent);
+    transition: none;
+  }
+  .portfolio-card:hover::after {
+    animation: cardShine 0.6s ease forwards;
+  }
+
+  /* Presence cards lift + glow */
+  .presence-card {
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+  .presence-card:hover {
+    transform: translateY(-8px) scale(1.03);
+    box-shadow: 0 20px 40px rgba(201,168,76,0.15);
+  }
+
+  /* Experience item left border slide */
+  .exp-item::before {
+    transition: background 0.3s, height 0.4s ease;
+    transform-origin: top;
+  }
+
+  /* Skill tags wave on hover */
+  .skill-tag {
+    transition: all 0.25s ease;
+  }
+  .skill-tag:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 16px rgba(201,168,76,0.2);
+  }
+
+  /* Button pulse effect */
+  .btn-primary {
+    position: relative;
+    overflow: hidden;
+  }
+  .btn-primary::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(255,255,255,0.15);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+  }
+  .btn-primary:hover::after {
+    transform: scaleX(1);
+  }
+
+  /* Animated background particles in hero */
+  .hero-noise {
+    background-image:
+      radial-gradient(circle at 20% 20%, rgba(201,168,76,0.04) 0%, transparent 50%),
+      radial-gradient(circle at 80% 80%, rgba(201,168,76,0.03) 0%, transparent 50%),
+      url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    animation: gradientShift 8s ease infinite;
+    background-size: 200% 200%, 200% 200%, auto;
+  }
+
+  /* Gold divider line animated */
+  .hero-tag::before {
+    animation: shimmer 2s linear infinite;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    background-size: 200% auto;
+  }
+
+  /* Contact items slide hover */
+  .contact-item {
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+  .contact-item:hover {
+    transform: translateX(8px);
+  }
+
+  /* Drive links hover */
+  .drive-link {
+    transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+  .drive-link:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 30px rgba(201,168,76,0.15);
+  }
+
+  /* Nav logo shimmer */
+  .nav-logo {
+    background: linear-gradient(90deg, #c9a84c, #f5e17a, #c9a84c);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: shimmer 3s linear infinite;
+  }
+
 </style>
 </head>
 <body>
 
 <!-- NAV -->
 <nav>
-  <div class="nav-logo">Portfolio</div>
+  <div class="nav-logo">SGV — Portfolio</div>
   <ul class="nav-links">
     <li><a href="#about">About</a></li>
     <li><a href="#experience">Experience</a></li>
@@ -903,11 +1143,192 @@
 </footer>
 
 <script>
-// Scroll reveal
+// Scroll reveal — triggers every time element enters viewport
 const observer = new IntersectionObserver((entries) => {
-  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
-}, { threshold: 0.1 });
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+    } else {
+      // Remove class so animation replays when scrolling back up
+      e.target.classList.remove('visible');
+    }
+  });
+}, { threshold: 0.12 });
 document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// Hero animations — replay every time hero enters viewport
+const heroObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      // Reset and replay hero animated elements
+      ['.hero-tag', '.hero-name', '.hero-roles', '.hero-desc', '.hero-btns', '.hero-stats', '.hero-right'].forEach((sel, i) => {
+        const el = document.querySelector(sel);
+        if (!el) return;
+        el.style.animation = 'none';
+        el.style.opacity = '0';
+        void el.offsetWidth; // force reflow
+        el.style.animation = '';
+        el.style.opacity = '';
+      });
+
+      // Replay stat pop-ins
+      document.querySelectorAll('.stat-num').forEach((el, i) => {
+        el.style.animation = 'none';
+        void el.offsetWidth;
+        el.style.animation = `popIn 0.7s cubic-bezier(.36,.07,.19,.97) ${0.8 + i * 0.2}s both`;
+      });
+    }
+  });
+}, { threshold: 0.2 });
+
+const heroSection = document.querySelector('.hero');
+if (heroSection) heroObserver.observe(heroSection);
+
+// Section labels — animate every time they appear
+const labelObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.style.animation = 'none';
+      void e.target.offsetWidth;
+      e.target.style.animation = 'fadeUp 0.6s ease forwards';
+    } else {
+      e.target.style.opacity = '0';
+      e.target.style.animation = 'none';
+    }
+  });
+}, { threshold: 0.3 });
+document.querySelectorAll('.section-label, .section-title').forEach(el => {
+  el.style.opacity = '0';
+  labelObserver.observe(el);
+});
+
+// Portfolio cards — staggered replay every time
+const cardObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const cards = e.target.querySelectorAll('.portfolio-card, .edu-card, .presence-card');
+      cards.forEach((card, i) => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(30px)';
+        card.style.transition = 'none';
+        void card.offsetWidth;
+        card.style.transition = `opacity 0.5s ease ${i * 0.1}s, transform 0.5s ease ${i * 0.1}s`;
+        card.style.opacity = '1';
+        card.style.transform = 'translateY(0)';
+      });
+    } else {
+      const cards = e.target.querySelectorAll('.portfolio-card, .edu-card, .presence-card');
+      cards.forEach(card => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(30px)';
+        card.style.transition = 'none';
+      });
+    }
+  });
+}, { threshold: 0.1 });
+document.querySelectorAll('.portfolio-grid, .edu-grid, .presence-grid').forEach(el => cardObserver.observe(el));
+
+// Experience items — slide in every time
+const expObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const items = e.target.querySelectorAll('.exp-item');
+      items.forEach((item, i) => {
+        item.style.opacity = '0';
+        item.style.transform = 'translateX(-40px)';
+        item.style.transition = 'none';
+        void item.offsetWidth;
+        item.style.transition = `opacity 0.5s ease ${i * 0.12}s, transform 0.5s ease ${i * 0.12}s`;
+        item.style.opacity = '1';
+        item.style.transform = 'translateX(0)';
+      });
+    } else {
+      const items = e.target.querySelectorAll('.exp-item');
+      items.forEach(item => {
+        item.style.opacity = '0';
+        item.style.transform = 'translateX(-40px)';
+        item.style.transition = 'none';
+      });
+    }
+  });
+}, { threshold: 0.05 });
+const expList = document.querySelector('.exp-list');
+if (expList) expObserver.observe(expList);
+
+// Skill tags — wave in every time
+const skillObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const tags = e.target.querySelectorAll('.skill-tag');
+      tags.forEach((tag, i) => {
+        tag.style.opacity = '0';
+        tag.style.transform = 'scale(0.7)';
+        tag.style.transition = 'none';
+        void tag.offsetWidth;
+        tag.style.transition = `opacity 0.4s ease ${i * 0.06}s, transform 0.4s cubic-bezier(0.175,0.885,0.32,1.275) ${i * 0.06}s`;
+        tag.style.opacity = '1';
+        tag.style.transform = 'scale(1)';
+      });
+    } else {
+      const tags = e.target.querySelectorAll('.skill-tag');
+      tags.forEach(tag => {
+        tag.style.opacity = '0';
+        tag.style.transform = 'scale(0.7)';
+        tag.style.transition = 'none';
+      });
+    }
+  });
+}, { threshold: 0.2 });
+const skillsGrid = document.querySelector('.skills-grid');
+if (skillsGrid) skillObserver.observe(skillsGrid);
+
+// Contact items — slide in every time
+const contactObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const items = e.target.querySelectorAll('.contact-item');
+      items.forEach((item, i) => {
+        item.style.opacity = '0';
+        item.style.transform = 'translateX(-30px)';
+        item.style.transition = 'none';
+        void item.offsetWidth;
+        item.style.transition = `opacity 0.4s ease ${i * 0.12}s, transform 0.4s ease ${i * 0.12}s`;
+        item.style.opacity = '1';
+        item.style.transform = 'translateX(0)';
+      });
+    } else {
+      const items = e.target.querySelectorAll('.contact-item');
+      items.forEach(item => {
+        item.style.opacity = '0';
+        item.style.transform = 'translateX(-30px)';
+        item.style.transition = 'none';
+      });
+    }
+  });
+}, { threshold: 0.2 });
+const contactItems = document.querySelector('.contact-items');
+if (contactItems) contactObserver.observe(contactItems);
+
+// Hire box — pop in every time
+const hireObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.style.opacity = '0';
+      e.target.style.transform = 'scale(0.92) translateY(20px)';
+      e.target.style.transition = 'none';
+      void e.target.offsetWidth;
+      e.target.style.transition = 'opacity 0.5s ease 0.2s, transform 0.5s cubic-bezier(0.175,0.885,0.32,1.275) 0.2s';
+      e.target.style.opacity = '1';
+      e.target.style.transform = 'scale(1) translateY(0)';
+    } else {
+      e.target.style.opacity = '0';
+      e.target.style.transform = 'scale(0.92) translateY(20px)';
+      e.target.style.transition = 'none';
+    }
+  });
+}, { threshold: 0.3 });
+const hireBox = document.querySelector('.hire-box');
+if (hireBox) hireObserver.observe(hireBox);
 </script>
 
 </body>

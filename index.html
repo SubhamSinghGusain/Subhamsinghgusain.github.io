@@ -758,70 +758,11 @@
     animation: shimmer 3s linear infinite;
   }
 
-  /* ========== CUSTOM CURSOR ========== */
-  * { cursor: none !important; }
+  /* Normal system cursor */
+  * { cursor: auto; }
+  a, button, .skill-tag, .portfolio-card, .presence-card, .edu-card, .contact-item, .drive-link, .nav-cta, .btn-primary, .btn-secondary { cursor: pointer; }
 
-  .cursor-dot {
-    position: fixed;
-    width: 8px;
-    height: 8px;
-    background: var(--gold);
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 99999;
-    transform: translate(-50%, -50%);
-    transition: width 0.15s ease, height 0.15s ease, background 0.15s ease, opacity 0.15s ease;
-    mix-blend-mode: screen;
-  }
-
-  .cursor-ring {
-    position: fixed;
-    width: 36px;
-    height: 36px;
-    border: 1.5px solid rgba(201,168,76,0.6);
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 99998;
-    transform: translate(-50%, -50%);
-    transition: width 0.35s cubic-bezier(0.175,0.885,0.32,1.275),
-                height 0.35s cubic-bezier(0.175,0.885,0.32,1.275),
-                border-color 0.35s ease,
-                opacity 0.35s ease;
-  }
-
-  .cursor-trail {
-    position: fixed;
-    pointer-events: none;
-    z-index: 99997;
-    border-radius: 50%;
-    transform: translate(-50%, -50%);
-    animation: trailFade 0.6s ease forwards;
-  }
-
-  @keyframes trailFade {
-    0% { opacity: 0.5; width: 6px; height: 6px; background: rgba(201,168,76,0.4); }
-    100% { opacity: 0; width: 2px; height: 2px; background: rgba(201,168,76,0); }
-  }
-
-  .cursor-dot.hover { width: 14px; height: 14px; background: var(--gold-light); }
-  .cursor-ring.hover { width: 56px; height: 56px; border-color: rgba(232,201,122,0.8); }
-
-  /* cursor text label */
-  .cursor-label {
-    position: fixed;
-    pointer-events: none;
-    z-index: 99999;
-    font-family: 'Space Mono', monospace;
-    font-size: 0.6rem;
-    letter-spacing: 0.15em;
-    color: var(--gold);
-    text-transform: uppercase;
-    opacity: 0;
-    transform: translate(-50%, 24px);
-    transition: opacity 0.2s ease;
-    white-space: nowrap;
-  }
-  .cursor-label.visible { opacity: 1; }
+  .cursor-dot, .cursor-ring, .cursor-trail, .cursor-label, .cursor-spotlight { display: none !important; }
 
   /* ========== HERO BACKGROUND PHOTO BLEND ========== */
 
@@ -1053,7 +994,7 @@
 
 <!-- NAV -->
 <nav>
-  <div class="nav-logo">SGV — Portfolio</div>
+  <div class="nav-logo"></div>
   <ul class="nav-links">
     <li><a href="#about">About</a></li>
     <li><a href="#experience">Experience</a></li>
@@ -1648,6 +1589,7 @@ document.addEventListener('mousemove', (e) => {
   // Dot snaps immediately
   dot.style.left = mouseX + 'px';
   dot.style.top = mouseY + 'px';
+  dot.style.transform = 'translate(-4px, -4px)';
 
   // Spotlight follows with slight lag
   spotX = lerp(spotX, mouseX, 0.12);
@@ -1655,10 +1597,7 @@ document.addEventListener('mousemove', (e) => {
   spotlight.style.left = spotX + 'px';
   spotlight.style.top = spotY + 'px';
 
-  // Trail particles
-  if (Math.random() < 0.3) {
-    createTrail(mouseX, mouseY);
-  }
+  // Trail disabled
 });
 
 // Ring follows with smooth animation loop
@@ -1721,39 +1660,7 @@ document.querySelectorAll('.drive-link').forEach(el => el.dataset.cursor = 'Open
 document.querySelectorAll('.portfolio-card').forEach(el => el.dataset.cursor = 'Project');
 document.querySelectorAll('.presence-card').forEach(el => el.dataset.cursor = 'Visit');
 
-// Click burst effect
-document.addEventListener('click', (e) => {
-  for (let i = 0; i < 6; i++) {
-    const burst = document.createElement('div');
-    burst.style.cssText = `
-      position: fixed;
-      left: ${e.clientX}px;
-      top: ${e.clientY}px;
-      width: 4px;
-      height: 4px;
-      border-radius: 50%;
-      background: rgba(201,168,76,0.8);
-      pointer-events: none;
-      z-index: 99999;
-      transform: translate(-50%, -50%);
-      animation: burstParticle 0.5s ease forwards;
-      --dx: ${(Math.random() - 0.5) * 60}px;
-      --dy: ${(Math.random() - 0.5) * 60}px;
-    `;
-    document.body.appendChild(burst);
-    setTimeout(() => burst.remove(), 500);
-  }
-});
-
-// Inject burst keyframes
-const burstStyle = document.createElement('style');
-burstStyle.textContent = `
-  @keyframes burstParticle {
-    0% { opacity: 1; transform: translate(-50%, -50%) translate(0, 0) scale(1); }
-    100% { opacity: 0; transform: translate(-50%, -50%) translate(var(--dx), var(--dy)) scale(0); }
-  }
-`;
-document.head.appendChild(burstStyle);
+// Burst effect disabled
 
 // Hide default cursor on mobile
 if ('ontouchstart' in window) {
